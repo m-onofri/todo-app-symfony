@@ -1,20 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProjectController!{% endblock %}
+{% block title %}Projects{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="add-form">
+    <h2 class="resume">Hi Manuele, you have 3 active projects!</h2>
+    <form action="/projects/new" method="POST">
+      <input type="text" placeholder="New Project" name="new_project">
+      <input type="submit" value="Submit" class="btn btn-sm add" />
+    </form>
+  </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+  <!-- Main Content -->
+  <div class="container">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/manuele/Documents/coding/symfony/todo_app/todo_app/src/Controller/ProjectController.php'|file_link(0) }}">src/Controller/ProjectController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/manuele/Documents/coding/symfony/todo_app/todo_app/templates/project/index.html.twig'|file_link(0) }}">templates/project/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <!-- Active Projects Section -->
+    <div class="section">Active Project</div>
+    <div class="content">
+      <div class="headers">
+        <div class="header name">Name</div>
+        <div class="header start">Started At</div>
+        <div class="header complete">Completed At</div>
+        <div class="header actions">Actions</div>
+      </div>
+
+      <!-- Active Projects Items -->
+      {% for project in active_projects %}
+        <div class="item">
+          <div class="data name">
+            <a href="/activity/{{ project.id }}">{{project.name}}</a>
+            <button class="update">u</button>
+          </div>
+          <div class="data start">{{ project.startedAt|date("m/d/Y") }}</div>
+          <div class="data complete">none</div>
+          <div class="data actions">
+            <form class="btn-form" action="/projects/update" method="POST">
+              <input type="submit" class="btn btn-sm completed" name="action" value="Complete" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+            </form>
+            <form class="btn-form" action="/projects/delete" method="POST">
+              <input type="submit" class="btn btn-sm delete" name="action" value="Delete" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Completed Projects Section -->
+    <div class="section">Completed Project</div>
+    <div class="content">
+      <div class="headers">
+        <div class="header name">Name</div>
+        <div class="header start">Started At</div>
+        <div class="header complete">Completed At</div>
+        <div class="header actions">Actions</div>
+      </div>
+      <!-- Active Projects Items -->
+      {% for project in complete_projects %}
+        <div class="item">
+          <div class="data name">
+            <p>{{project.name}}</p>
+            <button class="update">u</button>
+          </div>
+          <div class="data start">{{ project.startedAt|date("m/d/Y") }}</div>
+          <div class="data complete">{{ project.completedAt|date("m/d/Y") }}</div>
+          <div class="data actions">
+            <form class="btn-form" action="/projects/update" method="POST">
+              <input type="submit" class="btn btn-sm active" name="action" value="Active" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+            </form>
+            <form class="btn-form" action="/projects/delete" method="POST">
+              <input type="submit" class="btn btn-sm delete" name="action" value="Delete" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

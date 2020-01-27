@@ -1,20 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ActivityController!{% endblock %}
+{% block title %}Activities{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="add-form">
+    <h2 class="resume">Hi Manuele, you have 3 activity in progress!</h2>
+    <form action="/activity/{{project_id}}/new" method="POST">
+      <input type="text" placeholder="New Activity" name="new_activity">
+      <input type="submit" value="Submit" class="btn btn-sm add" />
+    </form>
+  </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+  <!-- Main Content -->
+  <div class="container">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/manuele/Documents/coding/symfony/todo_app/todo_app/src/Controller/ActivityController.php'|file_link(0) }}">src/Controller/ActivityController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/manuele/Documents/coding/symfony/todo_app/todo_app/templates/activity/index.html.twig'|file_link(0) }}">templates/activity/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <!-- Todo Activities-->
+    <div class="section">Todo Activities</div>
+    <div class="content">
+      <div class="headers">
+        <div class="header name">Name</div>
+        <div class="header start">Started At</div>
+        <div class="header complete">Completed At</div>
+        <div class="header actions">Actions</div>
+      </div>
+      {% for activity in todo_activities %}
+        <div class="item">
+          <div class="data name">
+            <p>{{ activity.name }}</p>
+            <button class="update">u</button>
+          </div>
+          <div class="data start">none</div>
+          <div class="data complete">none</div>
+          <div class="data actions">
+            <form class="btn-form" action="/activity/{{project_id}}/update" method="POST">
+              <input type="submit" class="btn btn-sm active" name="action" value="Active" />
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+            </form>
+            <form class="btn-form" action="/activity/{{project_id}}/delete" method="POST">
+               <input type="submit" class="btn btn-sm delete" name="action" value="Delete" />
+               <input type="hidden" name="activity_id" value="{{activity.id}}" />
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- In Progress Activities-->
+    <div class="section">In Progress Activities</div>
+    <div class="content">
+      <div class="headers">
+        <div class="header name">Name</div>
+        <div class="header start">Started At</div>
+        <div class="header complete">Completed At</div>
+        <div class="header actions">Actions</div>
+      </div>
+      {% for activity in inProgress_activities %}
+        <div class="item">
+          <div class="data name">
+            <p>{{ activity.name }}</p>
+            <button class="update">u</button>
+          </div>
+          <div class="data start">{{activity.startedAt|date("d/m/Y")}}</div>
+          <div class="data complete">none</div>
+          <div class="data actions">
+            <form class="btn-form" action="/activity/{{project_id}}/update" method="POST">
+              <input type="submit" class="btn btn-sm completed" name="action" value="Complete" />
+              <input type="submit" class="btn btn-sm back" name="action" value="Back" />
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- Completed Activities-->
+    <div class="section">Completed Activities</div>
+    <div class="content">
+      <div class="headers">
+        <div class="header name">Name</div>
+        <div class="header start">Started At</div>
+        <div class="header complete">Completed At</div>
+        <div class="header actions">Actions</div>
+      </div>
+      {% for activity in complete_activities %}
+        <div class="item">
+          <div class="data name">
+            <p>{{activity.name}}</p>
+            <button class="update">u</button>
+          </div>
+          <div class="data start">{{activity.startedAt|date("d/m/Y")}}</div>
+          <div class="data complete">{{activity.completedAt|date("d/m/Y")}}</div>
+          <div class="data actions">
+            <form class="btn-form" action="/activity/{{project_id}}/update" method="POST">
+              <input type="submit" class="btn btn-sm back" name="action" value="Back">
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+            </form>
+            <form class="btn-form" action="/activity/{{project_id}}/delete" method="POST">
+               <input type="submit" class="btn btn-sm delete" name="action" value="Delete" />
+               <input type="hidden" name="activity_id" value="{{activity.id}}" />
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

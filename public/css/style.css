@@ -1,0 +1,184 @@
+* {
+    box-sizing: border-box;
+    font-size: 14px;
+    font-family: 'Roboto Slab', serif;
+}
+
+p, h1, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+h1 {
+    font-size: 26px;
+}
+
+header {
+    width: 100%;
+    background-color: black;
+    color: #fff;
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header span h4 {
+    display: inline-block;
+}
+
+.container {
+    width: 600px;
+    margin: 2rem auto;
+}
+
+.add-form {
+    width: 300px;
+    margin: 2rem auto;
+}
+
+.section {
+    font-size: 16px;
+    text-align: center;
+    padding: 0.4rem 0.25rem;
+    margin-top: 3rem;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.headers,
+.item {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: center;
+    padding: 0.4rem 0.25rem;
+}
+
+.headers {
+    background-color:#000;
+    color: #fff;
+}
+
+.item:nth-child(odd) {
+    background-color: rgb(214, 214, 214);
+}
+
+.name {
+    flex: 0 1 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 0.25rem;
+}
+
+.name a {
+    color: #000;
+}
+
+.name a:hover {
+    font-weight: bold;
+}
+
+.start,
+.complete {
+    flex: 0 1 20%;
+}
+
+.actions {
+    flex: 0 1 30%;
+}
+
+button {
+    border-radius: 5px;
+}
+
+.btn.completed,
+.btn.active {
+    background-color: green;
+    color: #fff;
+}
+
+.btn.delete,
+.btn.back {
+    background-color: red;
+    color: #fff;
+}
+
+.btn.add,
+.update {
+    margin-left: 3px;
+    background-color: orange;
+    color: #fff;
+}
+
+.btn-form {
+    display: inline-block;
+}
+
+@media only screen and (max-width: 630px) {
+    .container {
+        width: 100%;
+    }
+    
+    .content {
+        margin: auto;
+        width: 350px; 
+    }
+
+    .headers {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .item {
+        margin: 0 auto 5px;
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        border:gray solid 1px;
+        border-radius: 5px;
+    }
+
+    .data {
+        border-bottom: 1px solid rgb(190, 190, 190);
+        position: relative;
+        margin-left: 100px;
+        padding: 3px 0;
+        padding-right: 3px;
+        width: 249px;
+        text-align: left;
+      }
+
+    .data:before {
+        position: absolute;
+        top: 3px;
+        left: 12px;
+        width: 100px;
+        height: 100%;
+        margin-left: -115px;
+        text-align: right;
+    }
+
+    .data:last-child {
+        border: none;
+    }
+
+    .data:nth-of-type(1):before { content: "Name"; }
+    .data:nth-of-type(2):before { content: "Started At"; }
+    .data:nth-of-type(3):before { content: "Completed At"; }
+    .data:nth-of-type(4):before { content: "Actions";}
+}
+
+
