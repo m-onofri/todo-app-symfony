@@ -28,8 +28,15 @@
       {% for project in active_projects %}
         <div class="item">
           <div class="data name">
-            <a href="/activity/{{ project.id }}">{{project.name}}</a>
-            <button class="update">u</button>
+            <div class="project-name">
+              <a href="/activity/{{ project.id }}">{{project.name}}</a>
+              <button class="update update-name">u</button>
+            </div>
+            <form class="form-name" method="POST" action="/projects/update/name">
+              <input type="text" name="name" value="{{project.name}}" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+              <input type="submit" value="u" class="update" />
+            </form>
           </div>
           <div class="data start">{{ project.startedAt|date("m/d/Y") }}</div>
           <div class="data complete">none</div>
@@ -56,12 +63,19 @@
         <div class="header complete">Completed At</div>
         <div class="header actions">Actions</div>
       </div>
-      <!-- Active Projects Items -->
+      <!-- Completed Projects Items -->
       {% for project in complete_projects %}
         <div class="item">
           <div class="data name">
-            <p>{{project.name}}</p>
-            <button class="update">u</button>
+            <div class="project-name">
+              <p>{{project.name}}</p>
+              <button class="update update-name">u</button>
+            </div>
+            <form class="form-name" method="POST" action="/projects/update/name">
+              <input type="text" name="name" value="{{project.name}}" />
+              <input type="hidden" name="project_id" value="{{project.id}}" />
+              <input type="submit" value="u" class="update" />
+            </form>
           </div>
           <div class="data start">{{ project.startedAt|date("m/d/Y") }}</div>
           <div class="data complete">{{ project.completedAt|date("m/d/Y") }}</div>

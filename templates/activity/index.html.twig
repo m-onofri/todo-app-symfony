@@ -26,8 +26,15 @@
       {% for activity in todo_activities %}
         <div class="item">
           <div class="data name">
-            <p>{{ activity.name }}</p>
-            <button class="update">u</button>
+            <div class="project-name">
+              <p>{{activity.name}}</p>
+              <button class="update update-name">u</button>
+            </div>
+            <form class="form-name" method="POST" action="/activity/{{project_id}}/update/name">
+              <input type="text" name="name" value="{{activity.name}}" />
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+              <input type="submit" value="u" class="update" />
+            </form>
           </div>
           <div class="data start">none</div>
           <div class="data complete">none</div>
@@ -56,8 +63,15 @@
       {% for activity in inProgress_activities %}
         <div class="item">
           <div class="data name">
-            <p>{{ activity.name }}</p>
-            <button class="update">u</button>
+            <div class="project-name">
+              <p>{{activity.name}}</p>
+              <button class="update update-name">u</button>
+            </div>
+            <form class="form-name" method="POST" action="/activity/{{project_id}}/update/name">
+              <input type="text" name="name" value="{{activity.name}}" />
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+              <input type="submit" value="u" class="update" />
+            </form>
           </div>
           <div class="data start">{{activity.startedAt|date("d/m/Y")}}</div>
           <div class="data complete">none</div>
@@ -83,8 +97,15 @@
       {% for activity in complete_activities %}
         <div class="item">
           <div class="data name">
-            <p>{{activity.name}}</p>
-            <button class="update">u</button>
+            <div class="project-name">
+              <p>{{activity.name}}</p>
+              <button class="update update-name">u</button>
+            </div>
+            <form class="form-name" method="POST" action="/activity/{{project_id}}/update/name">
+              <input type="text" name="name" value="{{activity.name}}" />
+              <input type="hidden" name="activity_id" value="{{activity.id}}" />
+              <input type="submit" value="u" class="update" />
+            </form>
           </div>
           <div class="data start">{{activity.startedAt|date("d/m/Y")}}</div>
           <div class="data complete">{{activity.completedAt|date("d/m/Y")}}</div>

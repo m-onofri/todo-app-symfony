@@ -18,6 +18,8 @@
             <span><h4>Hello Manuele!</h4> | <a href="#">LogOut</a></span>
         </header>
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/script.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

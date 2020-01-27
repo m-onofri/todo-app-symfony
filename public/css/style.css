@@ -124,6 +124,21 @@ button {
     display: inline-block;
 }
 
+.project-name {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-name {
+    display: none;
+
+}
+
+.form-name input[type="text"] {
+    width: 70%;
+}
+
 @media only screen and (max-width: 630px) {
     .container {
         width: 100%;

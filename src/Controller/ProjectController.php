@@ -97,4 +97,24 @@ class ProjectController extends AbstractController
 
         return $this->redirectToRoute("project");
     }
+
+    /**
+     * @Route("/projects/update/name", name="project_update_name", methods={"POST"})
+     */
+    public function updateProjectName(Request $request, EntityManagerInterface $em, \Cocur\Slugify\SlugifyInterface $slugify)
+    {
+        $name = $request->request->get("name");
+        $slug = $slugify->slugify($name);
+        $id = $request->request->get("project_id");
+        $repository = $em->getRepository(Project::class); 
+        $project = $repository->find($id);
+
+        $project->setName($name);
+        $project->setSlug($slug);
+                
+        $em->persist($project);
+        $em->flush();
+
+        return $this->redirectToRoute("project");
+    }
 }

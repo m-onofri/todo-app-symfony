@@ -91,4 +91,22 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute("activity", ['project_id' => $project_id]);
     }
 
+    /**
+     * @Route("/activity/{project_id}/update/name", name="activity_update_name", methods={"POST"})
+     */
+    public function updateActivityName(Request $request, EntityManagerInterface $em, $project_id)
+    {
+        $name = $request->request->get("name");
+        $id = $request->request->get("activity_id");
+        $repository = $em->getRepository(Activity::class); 
+        $activity = $repository->find($id);
+
+        $activity->setName($name);
+                
+        $em->persist($activity);
+        $em->flush();
+
+        return $this->redirectToRoute("activity", ['project_id' => $project_id]);
+    }
+
 }
