@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Project;
+use App\Entity\Activity;
 
 class ProjectController extends AbstractController
 {
@@ -92,8 +93,8 @@ class ProjectController extends AbstractController
         $em->remove($project);
         $em->flush();
 
-        // $repo = $em->getRepository(Activity::class); 
-        // $repo->deleteActivitiesByProjectId(intval($id)); 
+        $repo = $em->getRepository(Activity::class); 
+        $repo->deleteActivitiesByProjectId(intval($id)); 
 
         return $this->redirectToRoute("project");
     }

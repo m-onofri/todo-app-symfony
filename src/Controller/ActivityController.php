@@ -109,4 +109,19 @@ class ActivityController extends AbstractController
         return $this->redirectToRoute("activity", ['project_id' => $project_id]);
     }
 
+    /**
+     * @Route("/activity/{project_id}/delete", name="activity_delete", methods={"POST"})
+     */
+    public function activityProject(Request $request, EntityManagerInterface $em, $project_id)
+    {
+        $id = $request->request->get("activity_id");
+        $repository = $em->getRepository(Activity::class); 
+        $activity = $repository->find($id); 
+
+        $em->remove($activity);
+        $em->flush();
+
+        return $this->redirectToRoute("activity", ['project_id' => $project_id]);
+    }
+
 }

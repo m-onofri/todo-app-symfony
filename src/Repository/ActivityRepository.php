@@ -36,6 +36,18 @@ class ActivityRepository extends ServiceEntityRepository
         ;
     }
 
+    public function deleteActivitiesByProjectId($id)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            DELETE FROM activity
+            WHERE project_id = :id
+        ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['id' => $id]);
+    }
+
     /*
     public function findOneBySomeField($value): ?Activity
     {
